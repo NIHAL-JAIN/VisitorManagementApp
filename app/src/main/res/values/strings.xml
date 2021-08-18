@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Visitor Management</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_visitor">Add visitor</string>
+    <string name="no_visitor_message">No Visitor Selected.</string>
+    <string name="edit_button_description">Button to edit Visitor details.</string>
+    <string name="delete_button_description">Button to delete Visitor</string>
+    <string name="addedit_name_hint">Visitor name : required</string>
+    <string name="editTextPhone_hint">Phone number:  required</string>
+    <string name="editTextAddress_hint">Address : required</string>
+    <string name="editTextCity_hint">City : required</string>
+    <string name="addedit_sortorder">Order : Sort low to high</string>
+    <string name="addedit_save_text">Save</string>
+    <string name="instructions_heading">Instructions</string>
+    <string name="instructions">Use the add button (+) in the toolbar above to add new Visitor.\n\nVisitor with the lower sort order will be placed higher up the list. Tasks with the same sort order will be sorted alphabetically.\n\nEach Visitor has Edit and Delete buttons if you want to change the details or remove the Visitor.</string>
+    <string name="title_activity_add_edit">AddEditActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Visitor Details</string>
+    <string name="second_fragment_label">Checkout Visitor</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

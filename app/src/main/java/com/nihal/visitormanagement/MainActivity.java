@@ -1,0 +1,140 @@
+package com.nihal.visitormanagement;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.nihal.visitormanagement.Adapter.FragmentsAdapter;
+import com.nihal.visitormanagement.databinding.ActivityMainBinding;
+
+public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnVisitorClickListener{
+
+    ActivityMainBinding binding;
+    public static final String TAG = "MainActivity";
+
+    private static final String ADD_EDIT_FRAGMENT = "AddEditFragment";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.viewPage.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
+
+//        String[] projection = {
+//                VisitorContract.Columns._ID,
+//                VisitorContract.Columns.VISITOR_NAME,
+//                VisitorContract.Columns.VISITOR_PHONE,
+//                VisitorContract.Columns.VISITOR_ADDRESS,
+//                VisitorContract.Columns.VISITOR_CITY,
+//                VisitorContract.Columns.VISITOR_SORTORDER};
+//
+//        ContentResolver contentResolver = getContentResolver();
+//        ContentValues values = new ContentValues();
+
+        // Edit record
+//        values.put(VisitorContract.Columns.VISITOR_NAME,"Raju singh");
+//        values.put(VisitorContract.Columns.VISITOR_PHONE,"8871151724");
+//        int count = contentResolver.update(VisitorContract.buildVisitorUri(3),values,null,null);
+//        Log.d(TAG, "onCreate: " + count + "record(s) updated");
+
+
+//        insert record
+
+//        values.put(VisitorContract.Columns.VISITOR_NAME,"Rajnesh singh");
+//        values.put(VisitorContract.Columns.VISITOR_PHONE,"8871151724");
+//        values.put(VisitorContract.Columns.VISITOR_ADDRESS,"Katra bazar");
+//        values.put(VisitorContract.Columns.VISITOR_CITY,"Pune");
+//        values.put(VisitorContract.Columns.VISITOR_SORTORDER, 2);
+//        Uri uri = contentResolver.insert(VisitorContract.CONTENT_URI,values);
+
+//        Cursor cursor = contentResolver.query(VisitorContract.CONTENT_URI,
+//        Cursor cursor = contentResolver.query(VisitorContract.buildVisitorUri(2),
+//                projection,
+//                null,
+//                null,
+//                VisitorContract.Columns.VISITOR_SORTORDER);
+//
+//        if(cursor!=null) {
+//            Log.d(TAG,"onCreate: number of rows: " + cursor.getCount());
+//            while (cursor.moveToNext()){
+//                for(int i = 0; i<cursor.getColumnCount();i++){
+//                    Log.d(TAG,"onCreate:" + cursor.getColumnName(i) + ":" + cursor.getString(i));
+//                }
+//                Log.d(TAG,"onCreate: ========================================");
+//
+//            }
+//            cursor.close();
+//        }
+
+//        AppDatabase appDatabase = AppDatabase.getInstance(this);
+//        final SQLiteDatabase db = appDatabase.getReadableDatabase();
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               visitorEditRequest(null);
+            }
+        });
+        binding.tabLayout.setupWithViewPager(binding.viewPage);
+    }
+
+    @Override
+    public void onEditClick(@NonNull Visitor visitor) {
+        visitorEditRequest(visitor);
+
+    }
+
+    @Override
+    public void onDeleteClick(@NonNull Visitor visitor) {
+        getContentResolver().delete(VisitorContract.buildVisitorUri(visitor.getId()),null,null);
+
+    }
+
+    private void visitorEditRequest(Visitor visitor){
+        Log.d(TAG, "visitorEditRequest: starts");
+        Intent detailIntent = new Intent(MainActivity.this,AddEditActivity.class);
+        if(visitor != null ){
+            detailIntent.putExtra(Visitor.class.getSimpleName(),visitor);
+            startActivity(detailIntent);
+        }else {
+            startActivity(detailIntent);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this,PhoneNumberActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}

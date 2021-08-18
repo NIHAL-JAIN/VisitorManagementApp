@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1083446283826",
+    "project_id": "visitormanagement-81408",
+    "storage_bucket": "visitormanagement-81408.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083446283826:android:08b4cf2909b7e1ee40362b",
+        "android_client_info": {
+          "package_name": "com.nihal.visitormanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083446283826-0bafp8rospa0ejmjheei19os7c5m9v10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nihal.visitormanagement",
+            "certificate_hash": "c361d1d5daab7061510a821ed949067ba4e9f396"
+          }
+        },
+        {
+          "client_id": "1083446283826-si0hr6uvem5m8k4i9u785a3jq6lf0ubv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDPVhD0kAJw1oRfQTnmYY8H5oLrPHg_K0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083446283826-si0hr6uvem5m8k4i9u785a3jq6lf0ubv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
