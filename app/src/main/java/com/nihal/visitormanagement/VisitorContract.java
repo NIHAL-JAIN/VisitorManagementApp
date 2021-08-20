@@ -22,10 +22,12 @@ public class VisitorContract {
         public static final String VISITOR_ADDRESS = "Address";
         public static final String VISITOR_CITY = "City";
         public static final String VISITOR_SORTORDER = "SortOrder";
+        public static final String VISITOR_STATUS = "Status";
 
         private Columns(){
             //private Constructor to prevent instantiation
         }
+
     }
     /**
      * The URI to access the Task Table

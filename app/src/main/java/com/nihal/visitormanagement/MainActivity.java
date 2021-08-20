@@ -2,13 +2,9 @@ package com.nihal.visitormanagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,9 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.nihal.visitormanagement.Adapter.FragmentsAdapter;
+import com.nihal.visitormanagement.Adapters.FragmentsAdapter;
+import com.nihal.visitormanagement.Fragments.CheckInFragment;
 import com.nihal.visitormanagement.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnVisitorClickListener{
@@ -35,6 +31,34 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
         setContentView(binding.getRoot());
 
         binding.viewPage.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
+        binding.viewPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        binding.fab.show();
+                        break;
+                    case 1:
+                        binding.fab.hide();
+
+                        break;
+                    default:
+                        binding.fab.show();
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 //        String[] projection = {
 //                VisitorContract.Columns._ID,
@@ -95,29 +119,6 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
     }
 
     @Override
-    public void onEditClick(@NonNull Visitor visitor) {
-        visitorEditRequest(visitor);
-
-    }
-
-    @Override
-    public void onDeleteClick(@NonNull Visitor visitor) {
-        getContentResolver().delete(VisitorContract.buildVisitorUri(visitor.getId()),null,null);
-
-    }
-
-    private void visitorEditRequest(Visitor visitor){
-        Log.d(TAG, "visitorEditRequest: starts");
-        Intent detailIntent = new Intent(MainActivity.this,AddEditActivity.class);
-        if(visitor != null ){
-            detailIntent.putExtra(Visitor.class.getSimpleName(),visitor);
-            startActivity(detailIntent);
-        }else {
-            startActivity(detailIntent);
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
@@ -136,5 +137,28 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onEditClick(@NonNull Visitor visitor) {
+        visitorEditRequest(visitor);
+
+    }
+
+    @Override
+    public void onDeleteClick(@NonNull Visitor visitor) {
+
+        getContentResolver().delete(VisitorContract.buildVisitorUri(visitor.getId()),null,null);
+
+    }
+
+    private void visitorEditRequest(Visitor visitor){
+        Log.d(TAG, "visitorEditRequest: starts");
+        Intent detailIntent = new Intent(this,AddEditActivity.class);
+        if(visitor != null ){
+            detailIntent.putExtra(Visitor.class.getSimpleName(),visitor);
+            startActivity(detailIntent);
+        }else {
+            startActivity(detailIntent);
+        }
     }
 }

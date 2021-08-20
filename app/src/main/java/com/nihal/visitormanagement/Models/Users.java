@@ -1,4 +1,4 @@
-package com.nihal.visitormanagement.Model;
+package com.nihal.visitormanagement.Models;
 
 public class Users {
     String profilePic, name , phoneNumber;

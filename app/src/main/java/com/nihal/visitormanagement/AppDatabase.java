@@ -24,6 +24,7 @@ class AppDatabase extends SQLiteOpenHelper {
     //Implement AppDatabase as a Singleton
     private static AppDatabase instance = null;
 
+    //Constructor of AppDatabase
     private AppDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d(TAG, "AppDatabase: constructor");
@@ -47,7 +48,8 @@ class AppDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate : starts");
-        String sSQL; // use a string variable to facilitate logging
+        String sSQL;
+        // use a string variable to facilitate logging
 //            sSQL = "CREATE TABLE Visitor (_id INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL, Phone INTEGER, Address TEXT, City TEXT, SortOrder INTEGER);";
         sSQL = "CREATE TABLE " + VisitorContract.TABLE_NAME + " ("
                 + VisitorContract.Columns._ID + " INTEGER PRIMARY KEY NOT NULL,"
@@ -55,10 +57,11 @@ class AppDatabase extends SQLiteOpenHelper {
                 + VisitorContract.Columns.VISITOR_PHONE + " TEXT, "
                 + VisitorContract.Columns.VISITOR_ADDRESS + " TEXT, "
                 + VisitorContract.Columns.VISITOR_CITY + " TEXT, "
-                + VisitorContract.Columns.VISITOR_SORTORDER + " INTEGER);";
+                + VisitorContract.Columns.VISITOR_SORTORDER + " INTEGER, "
+                + VisitorContract.Columns.VISITOR_STATUS + " INTEGER );";
+
         Log.d(TAG, sSQL);
         db.execSQL(sSQL);
-
         Log.d(TAG, "onCreate: ends");
 
     }
@@ -68,7 +71,7 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "onUpgrade: starts");
         switch (oldVersion) {
             case 1:
-                // upgrade logic from version 1
+                // upgrade logic from version 3
                 break;
             default:
                 throw new IllegalStateException("onUpgrade() with unknown newVersion: " + newVersion);

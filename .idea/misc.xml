@@ -5,14 +5,14 @@
       <map>
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/drawable-v24/textbox_outline.xml" value="0.1765625" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/activity_add_edit.xml" value="0.1956521739130435" />
-        <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/activity_otpactivity.xml" value="0.176" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/activity_phone_number.xml" value="0.2" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/add_edit.xml" value="0.264" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/content_add_edit.xml" value="0.1956521739130435" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/content_main.xml" value="0.15625" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/fragment_add_edit.xml" value="0.264" />
-        <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/fragment_check_in.xml" value="0.264" />
+        <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/fragment_check_in.xml" value="0.2" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/fragment_check_out.xml" value="0.2078804347826087" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/fragment_first.xml" value="0.1956521739130435" />
         <entry key="..\:/android_udemy_course/VisitorManagement/app/src/main/res/layout/fragment_second.xml" value="0.1911231884057971" />

@@ -1,4 +1,4 @@
-package com.nihal.visitormanagement.Adapter;
+package com.nihal.visitormanagement.Adapters;
 /*
 * Manage the tabLayout
  */
@@ -27,6 +27,7 @@ public class FragmentsAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0 : return new CheckInFragment();
             case 1 : return new CheckOutFragment();
+
 
             default: return new CheckInFragment();
         }

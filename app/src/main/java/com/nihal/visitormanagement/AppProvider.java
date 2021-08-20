@@ -34,8 +34,10 @@ public class AppProvider extends ContentProvider {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         //eg. content://com.nihal.visitormanagement.provider/Visitor
+//        if(true)
         matcher.addURI(CONTENT_AUTHORITY,VisitorContract.TABLE_NAME, VISITOR);
         //eg. content://com.nihal.visitormanagement.provider/Visitor/8
+//        else
         matcher.addURI(CONTENT_AUTHORITY,VisitorContract.TABLE_NAME + "/#", VISITOR_ID);
 
         return matcher;
@@ -59,6 +61,7 @@ public class AppProvider extends ContentProvider {
         switch (match) {
             case VISITOR:
                 queryBuilder.setTables(VisitorContract.TABLE_NAME);
+//                queryBuilder.appendWhere(VisitorContract.Columns.VISITOR_STATUS + " = " + "1");
                 break;
             case VISITOR_ID:
                 queryBuilder.setTables(VisitorContract.TABLE_NAME);
@@ -77,8 +80,6 @@ public class AppProvider extends ContentProvider {
 
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
-
-
     }
 
     @Nullable

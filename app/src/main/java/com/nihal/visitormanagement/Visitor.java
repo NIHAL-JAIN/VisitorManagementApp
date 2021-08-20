@@ -2,7 +2,7 @@ package com.nihal.visitormanagement;
 
 import java.io.Serializable;
 
-class Visitor implements Serializable {
+public class Visitor implements Serializable {
     public static final long serialVersionUID = 20210816L;
 
     private long m_Id;
@@ -12,6 +12,7 @@ class Visitor implements Serializable {
     private final String mCity;
     private final int mSortOrder;
 
+
     public Visitor(long m_Id, String name, String phone, String address, String city, int sortOrder) {
         this.m_Id = m_Id;
         mName = name;
@@ -19,9 +20,12 @@ class Visitor implements Serializable {
         mAddress = address;
         mCity = city;
         mSortOrder = sortOrder;
+
     }
 
-     long getId() {
+
+
+    long getId() {
         return m_Id;
     }
 
@@ -45,7 +49,8 @@ class Visitor implements Serializable {
         return mSortOrder;
     }
 
-     void setId(long Id) {
+
+    void setId(long Id) {
         this.m_Id = Id;
     }
 
@@ -58,6 +63,8 @@ class Visitor implements Serializable {
                 ", mAddress='" + mAddress + '\'' +
                 ", mCity='" + mCity + '\'' +
                 ", mSortOrder=" + mSortOrder +
+            //    ", mStatus = " + mStatus+
+
                 '}';
     }
 }

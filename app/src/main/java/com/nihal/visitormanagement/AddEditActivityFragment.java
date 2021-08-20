@@ -19,7 +19,7 @@ import com.google.android.gms.tasks.Task;
 
 
 public class AddEditActivityFragment extends Fragment {
-    private static final String TAG = "AddEditActivity";
+    private static final String TAG = "AddEditActivityFragment";
 
     public enum FragmentEditMode{ EDIT, ADD}
 
@@ -48,6 +48,7 @@ public class AddEditActivityFragment extends Fragment {
         Log.d(TAG, "onCreateView: constructor called");
 
         View view = inflater.inflate(R.layout.fragment_add_edit,container,false);
+
         mNameTextView = view.findViewById(R.id.addedit_name);
         mPhoneTextView= view.findViewById(R.id.addeditPhone);
         mAddressTextView= view.findViewById(R.id.addeditAddress);
@@ -68,6 +69,8 @@ public class AddEditActivityFragment extends Fragment {
                 mAddressTextView.setText(visitor.getAddress());
                 mCityTextView.setText(visitor.getCity());
                 mSortOrderTextView.setText(Integer.toString(visitor.getSortOrder()));
+
+
                 mMode = FragmentEditMode.EDIT;
 
             }else {
@@ -84,22 +87,15 @@ public class AddEditActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                ///update the database if at least one filed has changed,
+                ///update the database if at least one field has changed.
                 //  - There's no need to hit the database unless this has happened.
                 int so; // to save repeated conversions to int.
-                int so1;// to save repeated conversions to int.
 
                 if(mSortOrderTextView.length()>0){
                     so = Integer.parseInt(mSortOrderTextView.getText().toString());
                 }else{
                     so  = 0;
                 }
-
-//                if(mPhoneTextView.length()>0){
-//                    so1 = Integer.parseInt(mPhoneTextView.getText().toString());
-//                }else{
-//                    so1  = 0;
-//                }
 
                 ContentResolver contentResolver = getActivity().getContentResolver();
                 ContentValues values = new ContentValues();
@@ -133,12 +129,14 @@ public class AddEditActivityFragment extends Fragment {
                         break;
                     case ADD:
                         if(mNameTextView.length()>0){
-                            Log.d(TAG,"onClick: adding new Visitor");
+                            Log.d(TAG,"onClick: adding new visitor");
                             values.put(VisitorContract.Columns.VISITOR_NAME,mNameTextView.getText().toString());
                             values.put(VisitorContract.Columns.VISITOR_PHONE,mPhoneTextView.getText().toString());
                             values.put(VisitorContract.Columns.VISITOR_ADDRESS,mAddressTextView.getText().toString());
                             values.put(VisitorContract.Columns.VISITOR_CITY,mCityTextView.getText().toString());
-                            values.put(VisitorContract.Columns.VISITOR_SORTORDER,so);
+                            values.put(VisitorContract.Columns.VISITOR_SORTORDER,mSortOrderTextView.getText().toString());
+                            values.put(VisitorContract.Columns.VISITOR_STATUS,"1");
+
                             contentResolver.insert(VisitorContract.CONTENT_URI,values);
                         }
                         break;
@@ -154,6 +152,7 @@ public class AddEditActivityFragment extends Fragment {
         Log.d(TAG, "onCreateView: Exiting...");
 
     return view;
+
 
     }
 }
