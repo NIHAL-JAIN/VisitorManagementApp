@@ -56,7 +56,7 @@ public class OTPActivity extends AppCompatActivity {
 
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber(phoneNumber)
-                .setTimeout(60L, TimeUnit.SECONDS)
+                .setTimeout(120L, TimeUnit.SECONDS)
                 .setActivity(OTPActivity.this)
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
@@ -66,6 +66,8 @@ public class OTPActivity extends AppCompatActivity {
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+                        Intent intent = new Intent(OTPActivity.this,PhoneNumberActivity.class);
+                        startActivity(intent);
 
                     }
 

@@ -52,10 +52,4 @@
             tools:ignore="ImageContrastCheck"
             tools:layout_editor_absoluteX="16dp" />
     </RelativeLayout>
-
-
-
-
-
-
 </LinearLayout>

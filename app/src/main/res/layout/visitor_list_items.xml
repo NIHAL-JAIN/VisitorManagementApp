@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/lay_ma"
     android:layout_height="wrap_content">
 
     <TextView
@@ -19,7 +20,7 @@
         android:textSize="22sp"
         android:textStyle="normal|bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tli_edit"
+        app:layout_constraintRight_toLeftOf="@+id/tli_delete"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Visitor Management Application"/>
 
@@ -34,20 +35,20 @@
         android:layout_marginTop="8dp"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tli_edit"
+        app:layout_constraintRight_toLeftOf="@+id/tli_delete"
         app:layout_constraintTop_toBottomOf="@+id/tli_name"
         tools:text="Write visitor details for Visitor Management Application"/>
 
-    <ImageButton
-        android:id="@+id/tli_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:contentDescription="@string/edit_button_description"
-        app:layout_constraintRight_toLeftOf="@+id/tli_delete"
-        app:layout_constraintTop_toTopOf="@+id/tli_delete"
-        app:srcCompat="@android:drawable/ic_menu_edit"/>
+<!--    <ImageButton-->
+<!--        android:id="@+id/tli_edit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        android:contentDescription="@string/edit_button_description"-->
+<!--        app:layout_constraintRight_toLeftOf="@+id/tli_delete"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/tli_delete"-->
+<!--        app:srcCompat="@android:drawable/ic_menu_edit"/>-->
 
     <ImageButton
         android:id="@+id/tli_delete"

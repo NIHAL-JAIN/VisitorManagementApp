@@ -37,6 +37,7 @@ public class CheckOutFragment extends Fragment implements LoaderManager.LoaderCa
         // Required empty public constructor
         Log.d(TAG, "CheckOutFragment: start");
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated: starts");
@@ -51,14 +52,7 @@ public class CheckOutFragment extends Fragment implements LoaderManager.LoaderCa
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
     }
 
-    @Override
-    public void onEditClick(@NonNull Visitor visitor) {
-        Log.d(TAG, "onEditClick: called");
-        CursorRecyclerViewAdapter.OnVisitorClickListener listener = (CursorRecyclerViewAdapter.OnVisitorClickListener) getActivity();
-        if (listener != null) {
-            listener.onEditClick(visitor);
-        }
-    }
+
 
     @Override
     public void onDeleteClick(@NonNull Visitor visitor) {
@@ -71,12 +65,13 @@ public class CheckOutFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView: starts ");
-        View view =  inflater.inflate(R.layout.fragment_check_out, container, false);
+        View view = inflater.inflate(R.layout.fragment_check_out, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.visitor_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -93,17 +88,20 @@ public class CheckOutFragment extends Fragment implements LoaderManager.LoaderCa
         Log.d(TAG, "onCreateLoader: start with id " + id);
         String[] projection = {VisitorContract.Columns._ID, VisitorContract.Columns.VISITOR_NAME,
                 VisitorContract.Columns.VISITOR_PHONE, VisitorContract.Columns.VISITOR_ADDRESS,
-                VisitorContract.Columns.VISITOR_CITY, VisitorContract.Columns.VISITOR_SORTORDER, VisitorContract.Columns.VISITOR_STATUS};
-        // <order by> Task.SortOrder
+                VisitorContract.Columns.VISITOR_CITY, VisitorContract.Columns.VISITOR_SORTORDER,
+                VisitorContract.Columns.VISITOR_STATUS};
+
+        // <order by> Visitor.SortOrder
         String sortOrder = VisitorContract.Columns.VISITOR_SORTORDER + "," + VisitorContract.Columns.VISITOR_NAME;
         switch (id) {
             case LOADER_ID:
                 return new CursorLoader(getActivity(),
                         VisitorContract.CONTENT_URI,
                         projection,
+                        "status = 0",
                         null,
-                        null,
-                        sortOrder);
+                        sortOrder
+                        );
             default:
                 throw new InvalidParameterException(TAG + ".onCreateLoader called with invalid loader id" + id);
         }

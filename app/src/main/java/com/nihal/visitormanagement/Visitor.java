@@ -11,16 +11,17 @@ public class Visitor implements Serializable {
     private final String mAddress;
     private final String mCity;
     private final int mSortOrder;
+    private String mStatus;
 
 
-    public Visitor(long m_Id, String name, String phone, String address, String city, int sortOrder) {
+    public Visitor(long m_Id, String name, String phone, String address, String city, int sortOrder, String status) {
         this.m_Id = m_Id;
         mName = name;
         mPhone = phone;
         mAddress = address;
         mCity = city;
         mSortOrder = sortOrder;
-
+        mStatus = status;
     }
 
 
@@ -49,6 +50,14 @@ public class Visitor implements Serializable {
         return mSortOrder;
     }
 
+    String getStatus() {
+        return mStatus;
+    }
+
+    void setStatus(String status) {
+        status = "0";
+        mStatus = status;
+    }
 
     void setId(long Id) {
         this.m_Id = Id;
@@ -63,8 +72,7 @@ public class Visitor implements Serializable {
                 ", mAddress='" + mAddress + '\'' +
                 ", mCity='" + mCity + '\'' +
                 ", mSortOrder=" + mSortOrder +
-            //    ", mStatus = " + mStatus+
-
+                ", mStatus = " + mStatus +
                 '}';
     }
 }

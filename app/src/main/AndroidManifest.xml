@@ -13,7 +13,6 @@
         <activity
             android:name=".AddEditActivity"
             android:exported="true"
-            android:label="@string/title_activity_add_edit"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.VisitorManagement.NoActionBar">
             <meta-data

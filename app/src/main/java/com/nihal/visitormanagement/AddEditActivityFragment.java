@@ -3,6 +3,8 @@ package com.nihal.visitormanagement;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.Task;
+import com.nihal.visitormanagement.Fragments.CheckInFragment;
 
 
 public class AddEditActivityFragment extends Fragment {
@@ -149,6 +155,7 @@ public class AddEditActivityFragment extends Fragment {
 
             }
         });
+
         Log.d(TAG, "onCreateView: Exiting...");
 
     return view;

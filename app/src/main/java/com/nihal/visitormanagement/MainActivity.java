@@ -2,8 +2,11 @@ package com.nihal.visitormanagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,12 +20,13 @@ import com.nihal.visitormanagement.Adapters.FragmentsAdapter;
 import com.nihal.visitormanagement.Fragments.CheckInFragment;
 import com.nihal.visitormanagement.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnVisitorClickListener{
+public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnVisitorClickListener,
+                                  AddEditActivityFragment.OnSaveClicked{
 
     ActivityMainBinding binding;
     public static final String TAG = "MainActivity";
-
     private static final String ADD_EDIT_FRAGMENT = "AddEditFragment";
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
 
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
@@ -138,11 +144,7 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public void onEditClick(@NonNull Visitor visitor) {
-        visitorEditRequest(visitor);
 
-    }
 
     @Override
     public void onDeleteClick(@NonNull Visitor visitor) {
@@ -151,8 +153,10 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
 
     }
 
+
     private void visitorEditRequest(Visitor visitor){
         Log.d(TAG, "visitorEditRequest: starts");
+
         Intent detailIntent = new Intent(this,AddEditActivity.class);
         if(visitor != null ){
             detailIntent.putExtra(Visitor.class.getSimpleName(),visitor);
@@ -160,5 +164,22 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
         }else {
             startActivity(detailIntent);
         }
+
+
     }
+
+    @Override
+    public void onSaveClicked() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.viewPage);
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+        View mainFragment = findViewById(R.id.visitor_list);
+
+
+    }
+
 }

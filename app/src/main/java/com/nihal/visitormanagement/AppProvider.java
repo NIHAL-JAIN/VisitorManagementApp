@@ -2,6 +2,7 @@ package com.nihal.visitormanagement;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,9 +18,9 @@ import androidx.annotation.Nullable;
  */
 
 public class AppProvider extends ContentProvider {
-
+    Context context;
     private static final String TAG = "AppProvider";
-    private AppDatabase mOpenHelper;
+    private  AppDatabase mOpenHelper;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -35,7 +36,7 @@ public class AppProvider extends ContentProvider {
 
         //eg. content://com.nihal.visitormanagement.provider/Visitor
 //        if(true)
-        matcher.addURI(CONTENT_AUTHORITY,VisitorContract.TABLE_NAME, VISITOR);
+        matcher.addURI(CONTENT_AUTHORITY,VisitorContract.TABLE_NAME , VISITOR);
         //eg. content://com.nihal.visitormanagement.provider/Visitor/8
 //        else
         matcher.addURI(CONTENT_AUTHORITY,VisitorContract.TABLE_NAME + "/#", VISITOR_ID);
@@ -46,9 +47,16 @@ public class AppProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = AppDatabase.getInstance(getContext());
-
+        //this.context=getContext();
         return false;
+    }
+
+   public AppProvider(){
+
+    }
+
+   public AppProvider(Context context){
+        this.context=context;
     }
 
     @Nullable
@@ -61,7 +69,6 @@ public class AppProvider extends ContentProvider {
         switch (match) {
             case VISITOR:
                 queryBuilder.setTables(VisitorContract.TABLE_NAME);
-//                queryBuilder.appendWhere(VisitorContract.Columns.VISITOR_STATUS + " = " + "1");
                 break;
             case VISITOR_ID:
                 queryBuilder.setTables(VisitorContract.TABLE_NAME);
@@ -73,6 +80,7 @@ public class AppProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI: " + uri);
 
         }
+        mOpenHelper = AppDatabase.getInstance(getContext());
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 //        return queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
         Cursor cursor = queryBuilder.query(db,projection,selection,selectionArgs,null,null,sortOrder);
@@ -170,7 +178,6 @@ public class AppProvider extends ContentProvider {
             getContext().getContentResolver().notifyChange(uri, null);
         }else{
             Log.d(TAG,"delete: nothing deleted");
-
         }
         Log.d(TAG,"Exiting delete, returning " + count);
         return count;
@@ -183,13 +190,14 @@ public class AppProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         Log.d(TAG, "match is" + match);
 
-        final SQLiteDatabase db;
+        SQLiteDatabase db;
         int count;
 
         String selectionCriteria;
 
         switch (match) {
             case VISITOR:
+                mOpenHelper = AppDatabase.getInstance(getContext());
                 db = mOpenHelper.getWritableDatabase();
                 count = db.update(VisitorContract.TABLE_NAME, values, selection, selectionArgs);
                 break;
@@ -210,12 +218,13 @@ public class AppProvider extends ContentProvider {
         if(count >0){
             //something was updated
             Log.d(TAG,"update: Setting notifyChange with" + uri);
-            getContext().getContentResolver().notifyChange(uri, null);
+            context.getContentResolver().notifyChange(uri, null);
         }else{
             Log.d(TAG,"update: nothing update");
 
         }
         Log.d(TAG,"Exiting update, returning " + count);
         return count;
+
     }
 }

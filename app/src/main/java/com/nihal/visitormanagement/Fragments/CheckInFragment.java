@@ -4,6 +4,9 @@ package com.nihal.visitormanagement.Fragments;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -57,24 +60,6 @@ public class CheckInFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
-    public void onEditClick(@NonNull Visitor visitor) {
-        Log.d(TAG, "onEditClick: called");
-        CursorRecyclerViewAdapter.OnVisitorClickListener listener = (CursorRecyclerViewAdapter.OnVisitorClickListener) getActivity();
-        if (listener != null) {
-            listener.onEditClick(visitor);
-        }
-    }
-
-    @Override
-    public void onDeleteClick(@NonNull Visitor visitor) {
-        Log.d(TAG, "onDeleteClick: called");
-        CursorRecyclerViewAdapter.OnVisitorClickListener listener = (CursorRecyclerViewAdapter.OnVisitorClickListener) getActivity();
-        if (listener != null) {
-            listener.onDeleteClick(visitor);
-        }
-
-    }
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -90,6 +75,7 @@ public class CheckInFragment extends Fragment implements LoaderManager.LoaderCal
         return view;
     }
 
+
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
@@ -97,21 +83,34 @@ public class CheckInFragment extends Fragment implements LoaderManager.LoaderCal
         String[] projection = {VisitorContract.Columns._ID, VisitorContract.Columns.VISITOR_NAME,
                 VisitorContract.Columns.VISITOR_PHONE, VisitorContract.Columns.VISITOR_ADDRESS,
                 VisitorContract.Columns.VISITOR_CITY, VisitorContract.Columns.VISITOR_SORTORDER,VisitorContract.Columns.VISITOR_STATUS};
-        // <order by> Task.SortOrder, Task.Name COLLATE NOCASE
-        String sortOrder = VisitorContract.Columns.VISITOR_SORTORDER + "," + VisitorContract.Columns.VISITOR_NAME;
-        switch (id) {
-            case LOADER_ID:
-                return new CursorLoader(getActivity(),
+        // <order by> Visitor.SortOrder, Visitor.Name Collate NOCASE : reason for using it that sort order is case sensitive
+        String sortOrder = VisitorContract.Columns.VISITOR_SORTORDER + "," + VisitorContract.Columns.VISITOR_NAME + " COLLATE NOCASE";
+        switch (1) {
+            case 1:
+                return new CursorLoader(this.getContext(),
                         VisitorContract.CONTENT_URI,
                         projection,
-                        null  ,
+                        "status = 1",
                         null,
                         sortOrder
                         );
+
             default:
                 throw new InvalidParameterException(TAG + ".onCreateLoader called with invalid loader id" + id);
         }
     }
+
+
+    @Override
+    public void onDeleteClick(@NonNull Visitor visitor) {
+        Log.d(TAG, "onDeleteClick: called");
+        CursorRecyclerViewAdapter.OnVisitorClickListener listener = (CursorRecyclerViewAdapter.OnVisitorClickListener) getActivity();
+        if (listener != null) {
+            listener.onDeleteClick(visitor);
+        }
+
+    }
+
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {

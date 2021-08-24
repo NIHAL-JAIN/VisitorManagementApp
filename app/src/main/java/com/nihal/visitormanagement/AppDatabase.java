@@ -77,5 +77,7 @@ class AppDatabase extends SQLiteOpenHelper {
                 throw new IllegalStateException("onUpgrade() with unknown newVersion: " + newVersion);
         }
         Log.d(TAG, "onUpgrade: ends");
+
     }
+
 }
