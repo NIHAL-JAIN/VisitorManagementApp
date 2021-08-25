@@ -13,7 +13,7 @@
     <string name="addedit_sortorder">Order : Sort low to high</string>
     <string name="addedit_save_text">Save</string>
     <string name="instructions_heading">Instructions</string>
-    <string name="instructions">Use the add button (+) in the toolbar above to add new Visitor.\n\nVisitor with the lower sort order will be placed higher up the list. Tasks with the same sort order will be sorted alphabetically.\n\nEach Visitor has Edit and Delete buttons if you want to change the details or remove the Visitor.</string>
+    <string name="instructions"> Use the add button (+) in the toolbar \n above to add new Visitor.\n\nVisitor with the lower sort order will \n be placed higher up the list.\n\nEach Visitor has Delete buttons if\n you want to remove the Visitor.</string>
     <string name="title_activity_add_edit">AddEditActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Visitor Details</string>
@@ -25,4 +25,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="visitor_det">Visitor det</string>
     <string name="visitor_details">Visitor details</string>
+    <string name="ok">ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="deldiag_message">Delete will also delete the other information</string>
+    <string name="deldiag_positive_caption">Delete</string>
 </resources>

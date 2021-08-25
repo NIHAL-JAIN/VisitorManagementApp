@@ -7,48 +7,51 @@
     android:id="@+id/lay_ma"
     android:layout_height="wrap_content">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:padding="5dp"
+        android:src="@drawable/avtar"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/tli_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:paddingTop="5dp"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="22sp"
         android:textStyle="normal|bold"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tli_delete"
         app:layout_constraintRight_toLeftOf="@+id/tli_delete"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Visitor Management Application"/>
+        tools:text="Visitor Name" />
+
 
     <TextView
         android:id="@+id/tli_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tli_delete"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toBottomOf="@+id/tli_name"
-        tools:text="Write visitor details for Visitor Management Application"/>
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/tli_edit"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_marginRight="8dp"-->
-<!--        android:contentDescription="@string/edit_button_description"-->
-<!--        app:layout_constraintRight_toLeftOf="@+id/tli_delete"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/tli_delete"-->
-<!--        app:srcCompat="@android:drawable/ic_menu_edit"/>-->
+        tools:text="Write visitor Phone number " />
 
     <ImageButton
         android:id="@+id/tli_delete"

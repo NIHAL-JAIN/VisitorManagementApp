@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -24,12 +26,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.nihal.visitormanagement.Fragments.CheckInFragment;
 
 
 public class AddEditActivityFragment extends Fragment {
     private static final String TAG = "AddEditActivityFragment";
+//    FirebaseStorage storage;
+//    FirebaseAuth auth;
+//    FirebaseDatabase database;
 
     public enum FragmentEditMode{ EDIT, ADD}
 
@@ -82,6 +93,11 @@ public class AddEditActivityFragment extends Fragment {
             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: constructor called");
 
+//        storage = FirebaseStorage.getInstance();
+//        auth = FirebaseAuth.getInstance();
+//        database = FirebaseDatabase.getInstance();
+
+
         View view = inflater.inflate(R.layout.fragment_add_edit,container,false);
 
         mNameTextView = view.findViewById(R.id.addedit_name);
@@ -90,6 +106,7 @@ public class AddEditActivityFragment extends Fragment {
         mCityTextView= view.findViewById(R.id.addeditCity);
         mSortOrderTextView = view.findViewById(R.id.addedit_sortorder);
         Button mSaveButton = view.findViewById(R.id.addedit_save);
+//        Button mImgButton = view.findViewById(R.id.plus);
 
         Bundle arguments = getActivity().getIntent().getExtras();
 
@@ -117,6 +134,16 @@ public class AddEditActivityFragment extends Fragment {
             Log.d(TAG,"onCreateView:No arguments, adding new record");
             mMode = FragmentEditMode.ADD;
         }
+//
+//        mImgButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                intent.setType("image/*");
+//                startActivityForResult(intent,33);
+//            }
+//        });
 
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,4 +218,24 @@ public class AddEditActivityFragment extends Fragment {
 
 
     }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(data.getData()!= null){
+//            Uri sFile = data.getData();
+//            ImageView imageView = (ImageView) getView().findViewById(R.id.profile_image);
+//            imageView.setImageURI(sFile);
+//
+//            final StorageReference reference = storage.getReference().child("profile-pictures")
+//                    .child(FirebaseAuth.getInstance().getUid());
+//
+//            reference.putFile(sFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                }
+//            });
+//        }
+//    }
 }

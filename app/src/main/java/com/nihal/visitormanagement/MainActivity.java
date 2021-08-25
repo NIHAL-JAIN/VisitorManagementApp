@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,17 +18,20 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.nihal.visitormanagement.Adapters.FragmentsAdapter;
 import com.nihal.visitormanagement.Fragments.CheckInFragment;
 import com.nihal.visitormanagement.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnVisitorClickListener,
-                                  AddEditActivityFragment.OnSaveClicked{
+                                  AddEditActivityFragment.OnSaveClicked,AppDialog.DialogEvents{
 
     ActivityMainBinding binding;
     public static final String TAG = "MainActivity";
-
+    private boolean mTwoPane = false;
     private static final String ADD_EDIT_FRAGMENT = "AddEditFragment";
+    public static final int DELETE_DIALOG_ID = 1;
     ProgressDialog dialog;
 
     @Override
@@ -147,10 +151,23 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
     }
 
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     public void onDeleteClick(@NonNull Visitor visitor) {
+        Log.d(TAG, "onDeleteClick: starts");
+        // We already created custom dialog in App dialog
+        AppDialog dialog = new AppDialog();
+        Bundle args = new Bundle();
+        args.putInt(AppDialog.DIALOG_ID,DELETE_DIALOG_ID);
+        args.putString(AppDialog.DIALOG_MESSAGE,getString(R.string.deldiag_message,visitor.getId(),visitor.getName()));
+        args.putInt(AppDialog.DIALOG_POSITIVE_RID, R.string.deldiag_positive_caption);
 
-        getContentResolver().delete(VisitorContract.buildVisitorUri(visitor.getId()),null,null);
+        args.putLong("VisitorId", visitor.getId());
+
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), null);
+
+//        getContentResolver().delete(VisitorContract.buildVisitorUri(visitor.getId()),null,null);
 
     }
 
@@ -165,14 +182,51 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
         }else {
             startActivity(detailIntent);
         }
-
-
     }
 
     @Override
     public void onSaveClicked() {
-        finish();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.visitor_list);
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+        View addEditLayout = findViewById(R.id.visitor_list);
+        View mainfragment = findViewById(R.id.nav_host_fragment_content_add_edit);
+
+        if(!mTwoPane){
+
+            addEditLayout.setVisibility(View.GONE);
+            mainfragment.setVisibility(View.VISIBLE);
+        }
 
     }
 
+    @Override
+    public void onPositiveDialogResult(int dialogId, Bundle args) {
+        Log.d(TAG, "onPositiveDialogResult: called");
+        switch (dialogId){
+            case DELETE_DIALOG_ID:
+                Long visitorId = args.getLong("VisitorId");
+                if (BuildConfig.DEBUG && visitorId == 0) throw new AssertionError("Task ID is zero");
+                getContentResolver().delete(VisitorContract.buildVisitorUri(visitorId),null,null);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onNegativeDialogResult(int dialogId, Bundle args) {
+        Log.d(TAG, "onNegativeDialogResult: called");
+
+    }
+
+    @Override
+    public void onDialogCancelled(int dialogId) {
+        Log.d(TAG, "onDialogCancelled: called");
+
+    }
 }

@@ -51,6 +51,7 @@ public class CursorRecyclerViewAdapter extends RecyclerView.Adapter<CursorRecycl
             holder.name.setText(R.string.instructions_heading);
             holder.phone.setText(R.string.instructions);
             holder.deleteButton.setVisibility(View.GONE);
+
         } else {
             if (!mCursor.moveToPosition(position)) {
                 throw new IllegalStateException("Couldn't move cursor to position" + position);

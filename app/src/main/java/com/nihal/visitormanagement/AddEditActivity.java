@@ -19,6 +19,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.nihal.visitormanagement.Fragments.CheckInFragment;
 import com.nihal.visitormanagement.databinding.ActivityAddEditBinding;
 
@@ -27,7 +30,6 @@ public class AddEditActivity extends AppCompatActivity implements AddEditActivit
     private static final String TAG = "AddEditActivity";
     private AppBarConfiguration appBarConfiguration;
     private ActivityAddEditBinding binding;
-    private boolean mTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,6 @@ public class AddEditActivity extends AppCompatActivity implements AddEditActivit
         binding = ActivityAddEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_add_edit);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
@@ -63,21 +61,6 @@ public class AddEditActivity extends AppCompatActivity implements AddEditActivit
 
     @Override
     public void onSaveClicked() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.visitor_list);
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .remove(fragment)
-                    .commit();
-        }
-        View addEditLayout = findViewById(R.id.visitor_list);
-        View mainfragment = findViewById(R.id.nav_host_fragment_content_add_edit);
-
-        if(!mTwoPane){
-
-            addEditLayout.setVisibility(View.GONE);
-            mainfragment.setVisibility(View.VISIBLE);
-        }
+      finish();
     }
 }
