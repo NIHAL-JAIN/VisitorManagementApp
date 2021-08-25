@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.nihal.visitormanagement.databinding.ActivityPhoneNumberBinding;
@@ -38,6 +39,8 @@ public class PhoneNumberActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PhoneNumberActivity.this, OTPActivity.class);
                 intent.putExtra("phoneNumber", binding.phoneBox.getText().toString());
+                //To add data into the intent object, so we use putExtra
+                //we are showing mobile number in the next screen also
                 startActivity(intent);
             }
         });

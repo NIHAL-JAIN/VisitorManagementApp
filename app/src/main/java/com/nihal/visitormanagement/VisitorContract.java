@@ -13,7 +13,7 @@ import android.provider.BaseColumns;
 public class VisitorContract {
     static final String TABLE_NAME = "Visitor";
 
-    //Task Fields
+    //Visitor Fields
     public static class Columns {
 
         //base columns is a abstract class
@@ -32,7 +32,7 @@ public class VisitorContract {
     }
 
     /**
-     * The URI to access the Task Table
+     * The URI to access the Visitor Table
      */
     public static final Uri CONTENT_URI = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, TABLE_NAME);
 

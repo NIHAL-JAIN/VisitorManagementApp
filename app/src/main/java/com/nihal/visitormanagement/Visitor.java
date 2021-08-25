@@ -55,7 +55,6 @@ public class Visitor implements Serializable {
     }
 
     void setStatus(String status) {
-        status = "0";
         mStatus = status;
     }
 

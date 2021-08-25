@@ -1,8 +1,10 @@
 package com.nihal.visitormanagement;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,6 +49,31 @@ public class AddEditActivityFragment extends Fragment {
     public AddEditActivityFragment(){
         Log.d(TAG, "AddEditActivityFragment: constructor called");
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        Log.d(TAG,"onAttach: starts");
+        super.onAttach(context);
+
+        //Activities containing this fragment must implement it's callbacks.
+        Activity activity = getActivity();
+        if (!(activity instanceof OnSaveClicked)) {
+            assert activity != null;
+            throw new ClassCastException(activity.getClass().getSimpleName()
+                    + " must implement AddEditActivityFragment.OnSaveClicked interface");
+        }
+        mSaveListener = (OnSaveClicked) activity;
+    }
+    @Override
+    public void onDetach() {
+        Log.d(TAG,"onDetach: starts");
+        super.onDetach();
+        mSaveListener = null;
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if(actionBar !=null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     @SuppressLint("SetTextI18n")

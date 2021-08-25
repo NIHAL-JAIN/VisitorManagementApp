@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -21,11 +22,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.nihal.visitormanagement.Fragments.CheckInFragment;
 import com.nihal.visitormanagement.databinding.ActivityAddEditBinding;
 
-public class AddEditActivity extends AppCompatActivity {
+public class AddEditActivity extends AppCompatActivity implements AddEditActivityFragment.OnSaveClicked {
 
     private static final String TAG = "AddEditActivity";
     private AppBarConfiguration appBarConfiguration;
     private ActivityAddEditBinding binding;
+    private boolean mTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,6 @@ public class AddEditActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     @Override
@@ -61,4 +61,23 @@ public class AddEditActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onSaveClicked() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.visitor_list);
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+        View addEditLayout = findViewById(R.id.visitor_list);
+        View mainfragment = findViewById(R.id.nav_host_fragment_content_add_edit);
+
+        if(!mTwoPane){
+
+            addEditLayout.setVisibility(View.GONE);
+            mainfragment.setVisibility(View.VISIBLE);
+        }
+    }
 }

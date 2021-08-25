@@ -46,8 +46,7 @@ public class OTPActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        getSupportActionBar().hide();
-
+        getSupportActionBar().hide(); //to hide action bar
 
 
         String phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -59,6 +58,7 @@ public class OTPActivity extends AppCompatActivity {
                 .setTimeout(120L, TimeUnit.SECONDS)
                 .setActivity(OTPActivity.this)
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    // Three condition of callBack
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
@@ -66,6 +66,7 @@ public class OTPActivity extends AppCompatActivity {
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+                        //Backtrack
                         Intent intent = new Intent(OTPActivity.this,PhoneNumberActivity.class);
                         startActivity(intent);
 
@@ -99,6 +100,8 @@ public class OTPActivity extends AppCompatActivity {
                             finishAffinity();
                         } else {
                             Toast.makeText(OTPActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(OTPActivity.this, PhoneNumberActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });

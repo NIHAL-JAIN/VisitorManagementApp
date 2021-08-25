@@ -49,7 +49,7 @@ class AppDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate : starts");
         String sSQL;
-        // use a string variable to facilitate logging
+//            use a string variable to facilitate logging
 //            sSQL = "CREATE TABLE Visitor (_id INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL, Phone INTEGER, Address TEXT, City TEXT, SortOrder INTEGER);";
         sSQL = "CREATE TABLE " + VisitorContract.TABLE_NAME + " ("
                 + VisitorContract.Columns._ID + " INTEGER PRIMARY KEY NOT NULL,"

@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
- * Provider for the TaskTimer app. This is the only that knows about{@link AppDatabase}.
+ * Provider for the VisitorManagement app. This is the only that knows about{@link AppDatabase}.
  */
 
 public class AppProvider extends ContentProvider {
@@ -47,7 +47,6 @@ public class AppProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        //this.context=getContext();
         return false;
     }
 

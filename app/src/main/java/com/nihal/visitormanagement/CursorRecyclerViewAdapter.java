@@ -25,10 +25,7 @@ public class CursorRecyclerViewAdapter extends RecyclerView.Adapter<CursorRecycl
     private OnVisitorClickListener mListener;
 
     public interface OnVisitorClickListener {
-
-
         void onDeleteClick(@NonNull Visitor visitor);
-
     }
 
     public CursorRecyclerViewAdapter(Cursor cursor, OnVisitorClickListener listener) {
@@ -177,7 +174,6 @@ public class CursorRecyclerViewAdapter extends RecyclerView.Adapter<CursorRecycl
 
         TextView name;
         TextView phone;
-        ImageButton editButton;
         ImageButton deleteButton;
         View itemView;
 

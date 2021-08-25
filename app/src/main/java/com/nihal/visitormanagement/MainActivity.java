@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
 
     ActivityMainBinding binding;
     public static final String TAG = "MainActivity";
+
     private static final String ADD_EDIT_FRAGMENT = "AddEditFragment";
     ProgressDialog dialog;
 
@@ -131,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
@@ -170,15 +171,7 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
 
     @Override
     public void onSaveClicked() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.viewPage);
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(fragment)
-                    .commit();
-        }
-        View mainFragment = findViewById(R.id.visitor_list);
-
+        finish();
 
     }
 
